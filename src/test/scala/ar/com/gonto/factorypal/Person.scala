@@ -17,10 +17,11 @@
  *
  */
 
+package ar.com.gonto.factorypal
+
 /**
  * TODO: Add a comment
- * @author gonto
- * @date 12/9/12
+ * @author mgonto
+ * Created Date: 12/10/12
  */
-
-println("Gonto")
+case class Person(name : String, age : Int)

@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
       version := "0.1-SNAPSHOT",
       scalaVersion := "2.10.0-RC3",
       libraryDependencies ++= Seq(
-          "org.scalatest" % "scalatest_2.10.0-M4" % "1.9-2.10.0-M4-B2"
+       "org.scalatest" % "scalatest_2.10.0-RC3" % "1.8-B1"
       ),
       resolvers ++= Seq(
          "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
