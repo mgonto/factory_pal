@@ -21,7 +21,7 @@ package ar.com.gonto.factorypal.reflection
 
 import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
-import ar.com.gonto.factorypal.{Age, Name, Person}
+import ar.com.gonto.factorypal.{NotAllConstructed, Age, Name, Person}
 import ar.com.gonto.factorypal.fields.{FieldSetter, SpecifiedFieldSetter}
 
 /**
@@ -56,6 +56,18 @@ class ObjectReflectorSpec extends FunSpec with ShouldMatchers {
       val person = ObjectReflector.create(list)
       person.age should equal(age)
       person.name should equal(name)
+    }
+
+    it("should set all of the fields not only those in constructor")  {
+      val name = "gonto"
+      val fill = "ejem"
+      val nameSetter = new SpecifiedFieldSetter[NotAllConstructed, String]("name", name, name.getClass)
+      val fillSetter = new SpecifiedFieldSetter[NotAllConstructed, String]("fill",fill, fill.getClass)
+      val list : List[FieldSetter[NotAllConstructed, Any]] =  List(fillSetter, nameSetter)
+      val created = ObjectReflector.create(list)
+      created.name should equal(name)
+      created.fill should equal(fill)
+
     }
   }
 }

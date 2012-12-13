@@ -29,3 +29,7 @@ case class Person(name : String, age : Int)
 case class Name(name : String)
 
 case class Age(age : Int)
+
+case class NotAllConstructed(name : String) {
+  var fill = ""
+}

@@ -31,7 +31,6 @@ import ar.com.gonto.factorypal.fields.FieldSetter
 object ObjectReflector {
 
   def create[T, Any](fieldSetters : List[FieldSetter[T, Any]])(implicit man : Manifest[T]) = {
-    fieldSetters.foreach(x => println(x.getValueClass))
 
     val constructorList = typeOf[T].declaration(nme.CONSTRUCTOR).asTerm.alternatives.collect {
         case m : MethodSymbol => m.paramss.map(_.map(x => x.asInstanceOf[TermSymbol]))
@@ -52,7 +51,13 @@ object ObjectReflector {
 
     val reflectedConstructor = clazzToUse.getConstructor(classesToUse: _*)
 
-    reflectedConstructor.newInstance(params.map(_.getValue.asInstanceOf[Object]) : _*).asInstanceOf[T]
+    val instance = reflectedConstructor.newInstance(params.map(_.getValue.asInstanceOf[Object]) : _*).asInstanceOf[T]
+
+    val fieldsRemaining = fieldSetters.dropWhile(elem => params.contains(elem))
+
+    fieldsRemaining.foreach(_.setValue(instance))
+
+    instance
   }
 
   private def clazz[T](implicit man : Manifest[T]) = man.runtimeClass

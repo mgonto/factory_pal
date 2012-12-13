@@ -31,7 +31,7 @@ import ar.com.gonto.factorypal.objects.ObjectBuilder
 class ObjectBuildingCompleteSpec extends FunSpec with ShouldMatchers {
   describe("A complete object") {
     it("should be created when using ObjectBuilder") {
-      
+
     }
   }
 
