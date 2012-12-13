@@ -19,16 +19,14 @@
 
 package ar.com.gonto.factorypal.fields
 
-import ar.com.gonto.factorypal.reflection.FieldReflector
-
 /**
  * TODO: Add a comment
  * @author mgonto
  * Created Date: 12/10/12
  */
-class SpecifiedFieldSetter[O, F](propName: String, value : F) extends FieldSetter[O, F](propName){
+class SpecifiedFieldSetter[O, F](propName: String, value : F, clazz : Class[_]) extends FieldSetter[O, F](propName){
 
-  def setValue(obj: O) {
-    new FieldReflector(obj).setV(propName, value)
-  }
+  def getValue: F = value
+
+  def getValueClass = clazz
 }

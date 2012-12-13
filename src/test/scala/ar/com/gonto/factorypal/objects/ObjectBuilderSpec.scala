@@ -37,6 +37,7 @@ class ObjectBuilderSpec extends FunSpec with ShouldMatchers {
       val builder = ObjectBuilder[Person]()
       val nameBuilder = builder.name
       nameBuilder.propName should equal("name")
+
     }
   }
 

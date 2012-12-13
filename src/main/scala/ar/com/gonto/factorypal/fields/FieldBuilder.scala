@@ -25,16 +25,13 @@ package ar.com.gonto.factorypal.fields
  * @author mgonto
  *         Created Date: 12/10/12
  */
-class FieldBuilder[O, F](val propName: String) {
+class FieldBuilder(val propName: String) {
 
-  def mapsTo(value : F) : FieldSetter[O, F] =
-    new SpecifiedFieldSetter[O, F](propName, value)
+  type objectType
+  type fieldType
 
-}
-
-object FieldBuilder {
-
-  def apply[O, F](propName: String) =
-    new FieldBuilder[O, F](propName)
+  def mapsTo(value : fieldType) : FieldSetter[objectType, fieldType] =
+    new SpecifiedFieldSetter[objectType, fieldType](propName, value, value.getClass)
 
 }
+

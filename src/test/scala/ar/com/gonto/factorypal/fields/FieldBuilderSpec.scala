@@ -33,7 +33,10 @@ class FieldBuilderSpec extends FunSpec with ShouldMatchers {
   describe ("A field builder") {
     it ("should be able to map a property to a value") {
       val propName = "age"
-      val fieldBuilder = FieldBuilder[Person, Int](propName)
+      val fieldBuilder = new FieldBuilder(propName) {
+        type objectType = Person
+        type fieldType = Int
+      }
       val setter = fieldBuilder mapsTo(55)
       setter should not equal(null)
       setter.propName should equal(propName)

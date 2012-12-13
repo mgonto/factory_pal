@@ -19,6 +19,10 @@
 
 package ar.com.gonto.factorypal.reflection
 
+import ar.com.gonto.factorypal.objects.ObjectBuilder
+import scala.reflect.runtime.universe._
+import ar.com.gonto.factorypal.fields.FieldSetter
+
 /**
  * TODO: Add a comment
  * @author mgonto
@@ -26,9 +30,32 @@ package ar.com.gonto.factorypal.reflection
  */
 object ObjectReflector {
 
-  def create[T](implicit man : Manifest[T]) = {
-    val clazz = man.runtimeClass
-    clazz.newInstance
+  def create[T, Any](fieldSetters : List[FieldSetter[T, Any]])(implicit man : Manifest[T]) = {
+    fieldSetters.foreach(x => println(x.getValueClass))
+
+    val constructorList = typeOf[T].declaration(nme.CONSTRUCTOR).asTerm.alternatives.collect {
+        case m : MethodSymbol => m.paramss.map(_.map(x => x.asInstanceOf[TermSymbol]))
+    }.flatten
+
+    val minConstructor = constructorList.minBy(_.size)
+
+    val namesToUse = minConstructor.map(x => (x.name.toString))
+
+    val params = namesToUse.map(name =>
+      fieldSetters.find(setter => setter.propName == name).getOrElse(
+        throw new IllegalStateException(s"The constructor needs a param with name $name and there's no property with that value")
+      ))
+
+    val clazzToUse = clazz[T]
+
+    val classesToUse = params.map(param => param.getValueClass)
+
+    val reflectedConstructor = clazzToUse.getConstructor(classesToUse: _*)
+
+    reflectedConstructor.newInstance(params.map(_.getValue.asInstanceOf[Object]) : _*).asInstanceOf[T]
   }
+
+  private def clazz[T](implicit man : Manifest[T]) = man.runtimeClass
+
 
 }

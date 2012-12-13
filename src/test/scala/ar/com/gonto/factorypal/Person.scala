@@ -25,3 +25,7 @@ package ar.com.gonto.factorypal
  * Created Date: 12/10/12
  */
 case class Person(name : String, age : Int)
+
+case class Name(name : String)
+
+case class Age(age : Int)

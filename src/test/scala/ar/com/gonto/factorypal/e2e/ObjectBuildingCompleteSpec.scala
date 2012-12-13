@@ -17,40 +17,21 @@
  *
  */
 
-package ar.com.gonto.factorypal.reflection
+package ar.com.gonto.factorypal.e2e
 
 import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
-import ar.com.gonto.factorypal.Person
+import ar.com.gonto.factorypal.objects.ObjectBuilder
 
 /**
  * TODO: Add a comment
  * @author mgonto
- * Created Date: 12/10/12
+ * Created Date: 12/13/12
  */
-class ReflectorSpec extends FunSpec with ShouldMatchers {
-
-  describe("The reflector") {
-    it ("should set the value OK") {
-      val oldName = "hola"
-      val person = new Person(oldName, 2)
-      person.name should equal(oldName)
-
-      val reflector = new FieldReflector(person)
-
-      val newName = "juan"
-      reflector.setV("name", newName)
-
-      person.name should equal(newName)
-    }
-
-    it ("should get the value OK") {
-      val name = "hola"
-      val person = new Person(name, 2)
-
-      val reflector = new FieldReflector(person)
-
-      reflector.getV("name") should equal (name)
+class ObjectBuildingCompleteSpec extends FunSpec with ShouldMatchers {
+  describe("A complete object") {
+    it("should be created when using ObjectBuilder") {
+      
     }
   }
 
