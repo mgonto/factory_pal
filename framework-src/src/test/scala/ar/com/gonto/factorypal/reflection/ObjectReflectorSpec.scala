@@ -47,17 +47,6 @@ class ObjectReflectorSpec extends FunSpec with ShouldMatchers {
       person.age should equal(age)
     }
 
-    it("should instantiate the person class correctly") {
-      val age = 23
-      val name = "gonto"
-      val ageSetter = new SpecifiedFieldSetter[Person, Int]("age", age, age.getClass)
-      val nameSetter = new SpecifiedFieldSetter[Person, String]("name", name, name.getClass)
-      val list : List[FieldSetter[Person, Any]] =  List(ageSetter, nameSetter)
-      val person = ObjectReflector.create(list)
-      person.age should equal(age)
-      person.name should equal(name)
-    }
-
     it("should set all of the fields not only those in constructor")  {
       val name = "gonto"
       val fill = "ejem"
