@@ -27,9 +27,21 @@ import scala.reflect.runtime.universe._
 
 
 /**
- * TODO: Add a comment
+ * The object builder is the interface that is going to be used to define the model
+ * to be used in Factory Pal.
+ *
+ * An example of usage would be
+ *
+ * val person = ObjectBuilder[Person]
+ * person.name.mapsTo("gonto")
+ *
+ * This class uses Macro (Scala 2.10 feature) to make this test object factory type safe.
+ *
+ * What does this mean? when in the previos example you do "person.name", if first checks
+ * that name is a field of person. If name isn't a field of person, then it won't compile.
+ * Then, it sets the type of that field in the FieldBuilder so that if name is of type String
+ * you cannot do person.name.mapsTo(2). This will not compile
  * @author mgonto
- *         Created Date: 12/10/12
  */
 class ObjectBuilder[O] extends Dynamic {
 
@@ -61,7 +73,7 @@ object ObjectBuilder {
       case NullaryMethodType(tpe) => tpe
       case _ => doesntCompile(s"$propertyName isn't a field, it must be another thing")
     }
-
+    //I've tried to format this line but couldn't. Eclipse and IntelliJ both get nuts
     c.Expr(Block(List(ClassDef(Modifiers(Flag.FINAL), newTypeName("$anon"), List(), Template(List(Ident(newTypeName("FieldBuilder"))), emptyValDef, List(DefDef(Modifiers(), nme.CONSTRUCTOR, List(), List(List()), TypeTree(), Block(List(Apply(Select(Super(This(tpnme.EMPTY), tpnme.EMPTY), nme.CONSTRUCTOR), List(Literal(Constant(propertyName))))), Literal(Constant(())))), TypeDef(Modifiers(), newTypeName("objectType"), List(), Ident(newTypeName(objectType.typeSymbol.name.toString))), TypeDef(Modifiers(), newTypeName("fieldType"), List(), Ident(newTypeName(fieldMemberType.typeSymbol.name.toString))))))), Apply(Select(New(Ident(newTypeName("$anon"))), nme.CONSTRUCTOR), List())))
 
 

@@ -20,10 +20,16 @@ package ar.com.gonto.factorypal.fields
  */
 
 /**
- * TODO: Write me
+ * This class works together with the ObjectBuilder to let users create some
+ * FieldSetter for a certain field in a certain object type.
+ *
+ * It has 2 abstract types:
+ * ObjectType is the type of the object to build
+ * FieldType is the type of the field to set
+ *
+ * This will ensure that everything is type safe
  *
  * @author mgonto
- *         Created Date: 12/10/12
  */
 class FieldBuilder(val propName: String) {
 

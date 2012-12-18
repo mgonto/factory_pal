@@ -24,9 +24,13 @@ import scala.reflect.runtime.universe._
 import ar.com.gonto.factorypal.fields.FieldSetter
 
 /**
- * TODO: Add a comment
+ * This is the object that does the magic.
+ *
+ * Given a list of FieldSetters and the Type of the object to create, this object first finds
+ * the minimum constructor to which we have all of the proeprties needed in our FieldSetters.
+ * After this, using this constructor, it instantiates the object. Then, using the remaining
+ * FieldSetters, this sets all of the fields value the user has asked.
  * @author mgonto
- * Created Date: 12/10/12
  */
 object ObjectReflector {
 

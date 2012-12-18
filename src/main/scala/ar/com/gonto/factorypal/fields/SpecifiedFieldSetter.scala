@@ -20,11 +20,11 @@
 package ar.com.gonto.factorypal.fields
 
 /**
- * TODO: Add a comment
+ * This is the most basic FieldSetter. It maps a cetain field to a certain value.
  * @author mgonto
- * Created Date: 12/10/12
  */
-class SpecifiedFieldSetter[O, F](propName: String, value : F, clazz : Class[_]) extends FieldSetter[O, F](propName){
+class SpecifiedFieldSetter[O, F](propName: String, value: F, clazz: Class[_])
+  extends FieldSetter[O, F](propName) {
 
   def getValue: F = value
 

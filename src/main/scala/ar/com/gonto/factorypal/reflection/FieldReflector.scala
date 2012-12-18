@@ -20,9 +20,8 @@
 package ar.com.gonto.factorypal.reflection
 
 /**
- * TODO: Add a comment
+ * This class is a helper to set and get values of a certain field property by reflection
  * @author mgonto
- *         Created Date: 12/10/12
  */
 class FieldReflector[O](ref: O) {
   def getV(name: String): Any =
