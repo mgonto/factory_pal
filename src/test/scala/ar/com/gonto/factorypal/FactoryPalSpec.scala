@@ -19,8 +19,10 @@
 
 package ar.com.gonto.factorypal
 
+import objects.ObjectBuilder
 import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
+import ar.com.gonto.factorypal.fields.FieldBuilder
 
 /**
  * TODO: Add a comment
@@ -32,7 +34,7 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
   describe("Factory pal") {
     it("should construct a person ok") {
       val name = "gonto"
-      val age = 2
+      val age = 2223
       FactoryPal.register[Person] { person =>
         person.name.mapsTo(name) and
         person.age.mapsTo(age)
@@ -41,6 +43,41 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
       val person = FactoryPal.create[Person]
       person.name should equal(name)
       person.age should equal(age)
+    }
+
+    it("should construct a person with overriders") {
+      val name = "gonto"
+      val age = 2223
+      FactoryPal.register[Person] { person =>
+        person.name.mapsTo(name) and
+          person.age.mapsTo(age)
+      }
+
+      val newName = "pepe"
+      val person = FactoryPal.create[Person] { (person : ObjectBuilder[Person]) =>
+        person.name.mapsTo(newName) alone
+      }
+
+      person.name should equal(newName)
+      person.age should equal(age)
+    }
+
+    it("should construct an employee ok") {
+      val companyName = "gonto"
+      val employeeName = "gontoEmployee"
+      FactoryPal.register[Company] { company =>
+        company.name.mapsTo(companyName) alone
+      }
+
+      FactoryPal.register[Employee] { employee =>
+        employee.name.mapsTo(employeeName) and
+        employee.company.isAnotherFactoryModel
+      }
+
+      val employee = FactoryPal.create[Employee]
+
+      employee.name should equal(employeeName)
+      employee.company.name should equal(companyName)
     }
   }
 

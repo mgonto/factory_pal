@@ -33,3 +33,7 @@ case class Age(age : Int)
 case class NotAllConstructed(name : String) {
   var fill = ""
 }
+
+case class Company(name : String)
+
+case class Employee(name : String, company : Company)

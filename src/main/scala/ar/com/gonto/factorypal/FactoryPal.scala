@@ -36,12 +36,16 @@ object FactoryPal {
     models = models updated(symbol, model(ObjectBuilder[O]()))
   }
 
-  def create[O](implicit man : Manifest[O]) : O = {
+  def create[O](overriders : ObjectBuilder[O] => ObjectSetter[O]) (implicit man : Manifest[O]) : O = {
     val symbol = ObjectReflector.classSymbol[O]
     val creator = models.get(symbol).getOrElse(
       throw new IllegalStateException(s"No builder register for $symbol")
     ).asInstanceOf[ObjectSetter[O]]
-    ObjectReflector.create(creator.fieldSetters)
+    ObjectReflector.create(creator.overrideFields(overriders(ObjectBuilder[O]())).fieldSetters)
+  }
+
+  def create[O](implicit man : Manifest[O]) : O = {
+    create[O]((model : ObjectBuilder[O] )=> new ObjectSetter[O](List()))
   }
 
 

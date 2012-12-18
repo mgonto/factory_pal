@@ -30,12 +30,10 @@ import ar.com.gonto.factorypal.fields.FieldSetter
  */
 class ObjectSetter[+O](val fieldSetters : List[FieldSetter[O, Any]]) {
 
-  def this(objectSetter : ObjectSetter[O], newValue : FieldSetter[O, Any]) =
-    this(newValue :: objectSetter.fieldSetters)
+def and[B >: O](setter : FieldSetter[B, Any]) = new ObjectSetter[B](setter :: fieldSetters)
 
-  def and[B >: O](setter : FieldSetter[B, Any]) = new ObjectSetter[B](this, setter)
+def overrideFields[B >: O](objectSetter : ObjectSetter[B]) = {
+  new ObjectSetter[B](fieldSetters.filter(setter =>
+    !objectSetter.fieldSetters.contains(setter)) ++ objectSetter.fieldSetters)
 }
-
-object ObjectSetter {
-  def apply[O](setter : FieldSetter[O, Any]) = new ObjectSetter[O](List(setter))
 }

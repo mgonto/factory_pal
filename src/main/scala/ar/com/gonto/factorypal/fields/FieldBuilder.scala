@@ -1,5 +1,7 @@
 package ar.com.gonto.factorypal.fields
 
+import ar.com.gonto.factorypal.reflection.ObjectReflector
+
 /*
  * *
  *  * Copyright 2012 Martin Gontovnikas (martin at gonto dot com dot ar) - twitter: @mgonto
@@ -36,8 +38,17 @@ class FieldBuilder(val propName: String) {
   type objectType
   type fieldType
 
-  def mapsTo(value : fieldType) : FieldSetter[objectType, fieldType] =
-    new SpecifiedFieldSetter[objectType, fieldType](propName, value, value.getClass)
+  def mapsTo(value : fieldType)(implicit man : Manifest[fieldType]) : FieldSetter[objectType, fieldType] = {
+    new SpecifiedFieldSetter[objectType, fieldType](propName, value, fieldClass)
+  }
+
+  def isRandom(implicit random : Randomizer[fieldType], man : Manifest[fieldType]) : FieldSetter[objectType, fieldType] =
+    mapsTo(random.randomValue)
+
+  def isAnotherFactoryModel(implicit man : Manifest[fieldType]) =
+    new OtherModelFieldSetter[objectType, fieldType](propName, fieldClass)
+
+  private def fieldClass(implicit man : Manifest[fieldType]) = ObjectReflector.clazz[fieldType]
 
 }
 

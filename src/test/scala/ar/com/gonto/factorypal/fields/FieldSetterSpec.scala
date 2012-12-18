@@ -38,7 +38,6 @@ class FieldSetterSpec extends FunSpec with ShouldMatchers {
       val setter = new SpecifiedFieldSetter[Person, Int](propName, value, value.getClass)
       setter.setValue(person)
       person.age should equal(value)
-
     }
   }
 

@@ -64,7 +64,7 @@ object ObjectReflector {
     instance
   }
 
-  private def clazz[T](implicit man : Manifest[T]) = man.runtimeClass
+  def clazz[T](implicit man : Manifest[T]) = man.runtimeClass
 
   def classSymbol[T](implicit man : Manifest[T]) = Symbol(clazz[T].getName)
 

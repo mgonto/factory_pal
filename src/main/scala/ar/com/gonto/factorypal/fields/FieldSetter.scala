@@ -20,6 +20,7 @@
 package ar.com.gonto.factorypal.fields
 
 import ar.com.gonto.factorypal.reflection.FieldReflector
+import ar.com.gonto.factorypal.objects.ObjectSetter
 
 /**
  * A FieldSetter is used to set a certain field to an instance of an object.
@@ -28,13 +29,15 @@ import ar.com.gonto.factorypal.reflection.FieldReflector
  * that can create the object given what the user stated in the model.
  * @author mgonto
  */
-abstract class FieldSetter[O, F](val propName: String) {
+abstract class FieldSetter[+O, +F](val propName: String, clazz: Class[_]) {
 
-  def setValue(obj : O) {
+  def setValue[B >: O](obj : B) {
     new FieldReflector(obj).setV(propName, getValue)
   }
 
   def getValue : F
 
-  def getValueClass : Class[_]
+  def alone = new ObjectSetter[O](List(this))
+
+  def getValueClass : Class[_] = clazz
 }

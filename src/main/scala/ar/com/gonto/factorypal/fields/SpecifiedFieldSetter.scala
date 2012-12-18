@@ -24,9 +24,7 @@ package ar.com.gonto.factorypal.fields
  * @author mgonto
  */
 class SpecifiedFieldSetter[O, F](propName: String, value: F, clazz: Class[_])
-  extends FieldSetter[O, F](propName) {
+  extends FieldSetter[O, F](propName, clazz) {
 
   def getValue: F = value
-
-  def getValueClass = clazz
 }

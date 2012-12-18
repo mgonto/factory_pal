@@ -17,26 +17,18 @@
  *
  */
 
-package ar.com.gonto.factorypal.reflection
+package ar.com.gonto.factorypal.fields
+
+import ar.com.gonto.factorypal.FactoryPal
 
 /**
- * This class is a helper to set and get values of a certain field property by reflection
+ * This is a FieldSetter that will be mapped to another model registered in FactoryPal
+ * This will be used for nested creation
  * @author mgonto
+ * Created Date: 12/18/12
  */
-class FieldReflector[O](ref: O) {
-  def getV(name: String): Any =
-    getField(name).get(ref)
+class OtherModelFieldSetter[O, F](propName: String, clazz: Class[_])
+  extends FieldSetter[O, F](propName,clazz) {
 
-
-  def setV[T](name: String, value: T) {
-    getField(name).set(ref, value)
-  }
-
-  private def getField(name : String) = {
-    val field = ref.getClass.getDeclaredField(name)
-    field.setAccessible(true)
-    field
-  }
-
-
+  def getValue: F = propName.asInstanceOf[F]
 }

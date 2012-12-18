@@ -37,9 +37,21 @@ class FieldBuilderSpec extends FunSpec with ShouldMatchers {
         type objectType = Person
         type fieldType = Int
       }
-      val setter = fieldBuilder mapsTo(55)
+      val age = 55
+      val setter = fieldBuilder mapsTo(age)
       setter should not equal(null)
       setter.propName should equal(propName)
+    }
+
+    it ("should be able to map to a random value") {
+      val propName = "age"
+      val fieldBuilder = new FieldBuilder(propName) {
+        type objectType = Person
+        type fieldType = Int
+      }
+      val setter = fieldBuilder.isRandom
+      setter should not equal(null)
+      setter.getValue should not equal(null)
     }
   }
 
