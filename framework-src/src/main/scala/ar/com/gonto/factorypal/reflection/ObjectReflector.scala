@@ -44,12 +44,13 @@ object ObjectReflector {
 
     val namesToUse = minConstructor.map(x => (x.name.toString))
 
+    val clazzToUse = clazz[T]
+    val clazzName = clazzToUse.getSimpleName
+
     val params = namesToUse.map(name =>
       fieldSetters.find(setter => setter.propName == name).getOrElse(
-        throw new IllegalStateException(s"The constructor needs a param with name $name and there's no property with that value")
+        throw new IllegalStateException(s"The constructor for $clazzName needs a param with name $name and there's no property with that value")
       ))
-
-    val clazzToUse = clazz[T]
 
     val classesToUse = params.map(param => param.getValueClass)
 
