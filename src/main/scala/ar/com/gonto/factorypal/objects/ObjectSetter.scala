@@ -17,24 +17,25 @@
  *
  */
 
-package ar.com.gonto.factorypal.fields
+package ar.com.gonto.factorypal.objects
 
-import ar.com.gonto.factorypal.reflection.FieldReflector
+import ar.com.gonto.factorypal.fields.FieldSetter
 
 /**
- * A FieldSetter is used to set a certain field to an instance of an object.
+ * This class holds a List of FieldSetters.
  *
- * The result of configuring ObjectBuilders with FieldBuilders is a list of FieldSetters
- * that can create the object given what the user stated in the model.
+ * This class was mainly created for syntactic sugar for the user
  * @author mgonto
+ * Created Date: 12/18/12
  */
-abstract class FieldSetter[O, F](val propName: String) {
+class ObjectSetter[+O](val fieldSetters : List[FieldSetter[O, Any]]) {
 
-  def setValue(obj : O) {
-    new FieldReflector(obj).setV(propName, getValue)
-  }
+  def this(objectSetter : ObjectSetter[O], newValue : FieldSetter[O, Any]) =
+    this(newValue :: objectSetter.fieldSetters)
 
-  def getValue : F
+  def and[B >: O](setter : FieldSetter[B, Any]) = new ObjectSetter[B](this, setter)
+}
 
-  def getValueClass : Class[_]
+object ObjectSetter {
+  def apply[O](setter : FieldSetter[O, Any]) = new ObjectSetter[O](List(setter))
 }

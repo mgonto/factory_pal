@@ -34,7 +34,7 @@ import ar.com.gonto.factorypal.fields.FieldSetter
  */
 object ObjectReflector {
 
-  def create[T, Any](fieldSetters : List[FieldSetter[T, Any]])(implicit man : Manifest[T]) = {
+  def create[T, Any](fieldSetters : List[FieldSetter[T, Any]])(implicit man : Manifest[T]) : T = {
 
     val constructorList = typeOf[T].declaration(nme.CONSTRUCTOR).asTerm.alternatives.collect {
         case m : MethodSymbol => m.paramss.map(_.map(x => x.asInstanceOf[TermSymbol]))
@@ -65,6 +65,8 @@ object ObjectReflector {
   }
 
   private def clazz[T](implicit man : Manifest[T]) = man.runtimeClass
+
+  def classSymbol[T](implicit man : Manifest[T]) = Symbol(clazz[T].getName)
 
 
 }

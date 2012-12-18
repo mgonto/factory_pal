@@ -17,22 +17,18 @@
  *
  */
 
-package ar.com.gonto.factorypal.e2e
+package ar.com.gonto.factorypal
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
-import ar.com.gonto.factorypal.objects.ObjectBuilder
+import objects.ObjectSetter
 
 /**
- * TODO: Add a comment
+ * This package object will have the implicit conversion to turn a FieldSetter to an
+ * ObjectSetter with only one setter
  * @author mgonto
- * Created Date: 12/13/12
  */
-class ObjectBuildingCompleteSpec extends FunSpec with ShouldMatchers {
-  describe("A complete object") {
-    it("should be created when using ObjectBuilder") {
+package object fields {
 
-    }
-  }
+  implicit def fieldSetterToObjectSetter[O](setter : FieldSetter[O, Any]) =
+    new ObjectSetter[O](setter)
 
 }

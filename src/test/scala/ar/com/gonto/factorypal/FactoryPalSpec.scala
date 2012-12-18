@@ -17,24 +17,31 @@
  *
  */
 
-package ar.com.gonto.factorypal.fields
+package ar.com.gonto.factorypal
 
-import ar.com.gonto.factorypal.reflection.FieldReflector
+import org.scalatest.FunSpec
+import org.scalatest.matchers.ShouldMatchers
 
 /**
- * A FieldSetter is used to set a certain field to an instance of an object.
- *
- * The result of configuring ObjectBuilders with FieldBuilders is a list of FieldSetters
- * that can create the object given what the user stated in the model.
+ * TODO: Add a comment
  * @author mgonto
+ * Created Date: 12/18/12
  */
-abstract class FieldSetter[O, F](val propName: String) {
+class FactoryPalSpec extends FunSpec with ShouldMatchers {
 
-  def setValue(obj : O) {
-    new FieldReflector(obj).setV(propName, getValue)
+  describe("Factory pal") {
+    it("should construct a person ok") {
+      val name = "gonto"
+      val age = 2
+      FactoryPal.register[Person] { person =>
+        person.name.mapsTo(name) and
+        person.age.mapsTo(age)
+      }
+
+      val person = FactoryPal.create[Person]
+      person.name should equal(name)
+      person.age should equal(age)
+    }
   }
 
-  def getValue : F
-
-  def getValueClass : Class[_]
 }
