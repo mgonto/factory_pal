@@ -50,7 +50,6 @@ import sbt.Keys._
 
 object ApplicationBuild extends Build {
 
-
   lazy val root = Project(
     id = "factory_pal_sample",
     base = file("."),
@@ -71,8 +70,6 @@ object ApplicationBuild extends Build {
          Resolver.url("Factory Pal Repository", 
           url("http://mgonto.github.com/snapshots/"))(Resolver.ivyStylePatterns)
       )
-
-      // add other settings here
     )
   )
 }
