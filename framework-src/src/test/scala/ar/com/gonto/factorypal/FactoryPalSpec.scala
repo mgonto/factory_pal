@@ -22,7 +22,6 @@ package ar.com.gonto.factorypal
 import objects.ObjectBuilder
 import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
-import ar.com.gonto.factorypal.fields.FieldBuilder
 
 /**
  * TODO: Add a comment
