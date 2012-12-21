@@ -9,7 +9,7 @@ Have you ever heard of factory_girl a super cool Ruby framework? Well, FactoryPa
 FactoryPal is a singleton object where you can register all of the templates. For example, you can define a template as follows:
 
 ````scala
-FactoryPal.register[Person] { person =>
+FactoryPal.register[Person]() { person =>
     person.name.mapsTo("gonto") and
     person.age.isRandom
 }
@@ -32,7 +32,7 @@ val person = FactoryPal.create[Person]
 The create method has another overload that lets you add some field overriders for certain test. For example you can do the following:
 
 ````scala
-val person = FactoryPal.create[Person] { (person : ObjectBuilder[Person]) =>
+val person = FactoryPal.create[Person]() { person :  =>
     person.age.mapsTo(45) alone
 }
 ````
@@ -40,6 +40,25 @@ val person = FactoryPal.create[Person] { (person : ObjectBuilder[Person]) =>
 Note that in this example we've added an alone at the end. If your builder has only one property, you need to tell this to FactoryPal by adding the alone at the end.
 
 And that's it. That's all you need to know to use this.
+
+## Multiple templates for class
+
+Now, you can have multiple templates for one class. How do you do so? Both register and create take an optional extra parameter that is an Option[Symbol]. That will be the name of your model
+
+So, let's register a coolPerson
+
+````scala
+FactoryPal.register[Person](Some('coolPerson)) { person =>
+    person.name.mapsTo("gonto") and
+    person.age.isRandom
+}
+````
+
+and let's use him :)
+
+````scala
+val person = FactoryPal.create[Person](Some('coolPerson))()
+````
 
 ## How can I add this to my project?
 
@@ -62,7 +81,7 @@ object ApplicationBuild extends Build {
       licenses      := ("Apache2", new java.net.URL("http://www.apache.org/licenses/LICENSE-2.0.txt")) :: Nil,
       libraryDependencies ++= Seq(
        "org.scala-lang" % "scala-compiler" % "2.10.0-RC3",
-       "ar.com.gonto" % "factory_pal_2.10" % "0.1-SNAPSHOT",
+       "ar.com.gonto" % "factory_pal_2.10" % "0.1.1-SNAPSHOT",
        "org.scalatest" % "scalatest_2.10.0-RC3" % "1.8-B1" % "test"
       ),
       resolvers ++= Seq(
@@ -85,7 +104,6 @@ Internally, this framework uses Scala Macros, Dynamic and the new Reflection lib
 
 The next things I want to do are:
 
-* Add the posibility to have multiple templates for one Class
 * Add template inheritance
 * Add helpers to use this with ScalaTest and Specs2. For the moment, you can create the templates in the before.
 
