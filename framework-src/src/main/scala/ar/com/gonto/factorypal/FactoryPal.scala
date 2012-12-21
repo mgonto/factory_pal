@@ -31,22 +31,26 @@ object FactoryPal {
 
   private var models : Map[Symbol, ObjectSetter[Any]] = Map()
 
-  def register[O](model : ObjectBuilder[O] => ObjectSetter[O])(implicit man : Manifest[O]) {
-    val symbol = ObjectReflector.classSymbol[O]
-    models = models updated(symbol, model(ObjectBuilder[O]()))
+  def register[O](symbol : Option[Symbol] = None)(model : ObjectBuilder[O] => ObjectSetter[O])(implicit man : Manifest[O]) {
+    models = models updated(mapKey(symbol), model(ObjectBuilder[O]()))
   }
 
-  def create[O](overriders : ObjectBuilder[O] => ObjectSetter[O]) (implicit man : Manifest[O]) : O = {
-    val symbol = ObjectReflector.classSymbol[O]
-    val creator = models.get(symbol).getOrElse(
+  def create[O] (symbol : Option[Symbol] = None)
+                (overriders : (ObjectBuilder[O] => ObjectSetter[O]) =
+                (model : ObjectBuilder[O] )=> new ObjectSetter[O](List()))
+                (implicit man : Manifest[O]) : O = {
+    val creator = models.get(mapKey(symbol)).getOrElse(
       throw new IllegalStateException(s"No builder register for $symbol")
     ).asInstanceOf[ObjectSetter[O]]
     ObjectReflector.create(creator.overrideFields(overriders(ObjectBuilder[O]())).fieldSetters)
   }
 
-  def create[O](implicit man : Manifest[O]) : O = {
-    create[O]((model : ObjectBuilder[O] )=> new ObjectSetter[O](List()))
-  }
+  def create[O](implicit man : Manifest[O]) : O =
+    create()()
+
+  
+  private def mapKey[O](symbol : Option[Symbol])(implicit man : Manifest[O]) =
+    symbol.getOrElse(ObjectReflector.classSymbol[O])
 
 
 }

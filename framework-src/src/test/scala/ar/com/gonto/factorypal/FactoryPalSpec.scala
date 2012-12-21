@@ -34,7 +34,7 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
     it("should construct a person ok") {
       val name = "gonto"
       val age = 2223
-      FactoryPal.register[Person] { person =>
+      FactoryPal.register[Person]() { person =>
         person.name.mapsTo(name) and
         person.age.mapsTo(age)
       }
@@ -44,16 +44,39 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
       person.age should equal(age)
     }
 
+    it("should construct two models for person ok") {
+      val name = "gonto"
+      val age = 2223
+      val johnName = "john"
+
+      FactoryPal.register[Person]() { person =>
+        person.name.mapsTo(name) and
+          person.age.mapsTo(age)
+      }
+
+      FactoryPal.register[Person](Some('john)) { person =>
+        person.name.mapsTo(johnName) and
+          person.age.mapsTo(age)
+      }
+
+      val person = FactoryPal.create[Person]
+      person.name should equal(name)
+      person.age should equal(age)
+
+      val johnPerson = FactoryPal.create[Person](Some('john))()
+      johnPerson.name should equal(johnName)
+    }
+
     it("should construct a person with overriders") {
       val name = "gonto"
       val age = 2223
-      FactoryPal.register[Person] { person =>
+      FactoryPal.register[Person]() { person =>
         person.name.mapsTo(name) and
           person.age.mapsTo(age)
       }
 
       val newName = "pepe"
-      val person = FactoryPal.create[Person] { (person : ObjectBuilder[Person]) =>
+      val person = FactoryPal.create[Person]() { person =>
         person.name.mapsTo(newName) alone
       }
 
@@ -64,11 +87,11 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
     it("should construct an employee ok") {
       val companyName = "gonto"
       val employeeName = "gontoEmployee"
-      FactoryPal.register[Company] { company =>
+      FactoryPal.register[Company]() { company =>
         company.name.mapsTo(companyName) alone
       }
 
-      FactoryPal.register[Employee] { employee =>
+      FactoryPal.register[Employee]() { employee =>
         employee.name.mapsTo(employeeName) and
         employee.company.isAnotherFactoryModel
       }

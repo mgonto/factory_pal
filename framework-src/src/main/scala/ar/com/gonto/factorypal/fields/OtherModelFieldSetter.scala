@@ -30,5 +30,5 @@ import ar.com.gonto.factorypal.FactoryPal
 class OtherModelFieldSetter[O, F](propName: String, clazz: Class[_])
   extends FieldSetter[O, F](propName,clazz) {
 
-  def getValue: F = FactoryPal.create[F](Manifest.classType[F](clazz))
+  def getValue: F = FactoryPal.create[F]()()(Manifest.classType[F](clazz))
 }
