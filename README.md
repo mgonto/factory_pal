@@ -32,7 +32,7 @@ val person = FactoryPal.create[Person]
 The create method has another overload that lets you add some field overriders for certain test. For example you can do the following:
 
 ````scala
-val person = FactoryPal.create[Person]() { person :  =>
+val person = FactoryPal.create[Person]() { person  =>
     person.age.mapsTo(45) alone
 }
 ````
