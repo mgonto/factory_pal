@@ -16,7 +16,7 @@ object ApplicationBuild extends Build {
       licenses      := ("Apache2", new java.net.URL("http://www.apache.org/licenses/LICENSE-2.0.txt")) :: Nil,
       libraryDependencies ++= Seq(
        "org.scala-lang" % "scala-compiler" % "2.10.0-RC3",
-       "ar.com.gonto" % "factory_pal_2.10" % "0.1-SNAPSHOT",
+       "ar.com.gonto" % "factory_pal_2.10" % "0.1.1-SNAPSHOT",
        "org.scalatest" % "scalatest_2.10.0-RC3" % "1.8-B1" % "test"
       ),
       resolvers ++= Seq(

@@ -27,4 +27,16 @@ class ModelSpec extends FunSpec with ShouldMatchers with BeforeAndAfter {
     }
   }
 
+  describe("Ceo") {
+    it("should have a coolName") {
+      val ceo = FactoryPal.create[Ceo](Some('coolCeo))()
+      ceo.name should equal("coolCeo")
+    }
+
+    it("should return false for ceo name wrong") {
+      val employee = FactoryPal.create[Employee]
+      employee.worksFor("Mamamamamamamma") should be(false)
+    }
+  }
+
 }

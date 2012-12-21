@@ -10,17 +10,22 @@ import ar.com.gonto.factorypal.fields.FieldBuilder
 object FactoryPalRegisterer {
 
   def register() = {
-    FactoryPal.register[Ceo] {ceo =>
+    FactoryPal.register[Ceo]() {ceo =>
       ceo.name.mapsTo("ceoName") and
       ceo.age.mapsTo(25)
     }
 
-    FactoryPal.register[Company] {company =>
+    FactoryPal.register[Ceo](Some('coolCeo)) {ceo =>
+      ceo.name.mapsTo("coolCeo") and
+      ceo.age.mapsTo(25)
+    }
+
+    FactoryPal.register[Company]() {company =>
       company.name.mapsTo("CompanyName") and
       company.ceo.isAnotherFactoryModel
     }
 
-    FactoryPal.register[Employee] {emp =>
+    FactoryPal.register[Employee]() {emp =>
         emp.name.mapsTo("employeeName") and
         emp.company.isAnotherFactoryModel and
         emp.age.mapsTo(225)
