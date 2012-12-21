@@ -10,7 +10,7 @@ object ApplicationBuild extends Build {
     settings = Project.defaultSettings ++ Seq(
       name := "factory_pal",
       organization := "ar.com.gonto",
-      version := "0.1-SNAPSHOT",
+      version := "0.1.1-SNAPSHOT",
       scalaVersion := "2.10.0-RC3",
       licenses      := ("Apache2", new java.net.URL("http://www.apache.org/licenses/LICENSE-2.0.txt")) :: Nil,
       libraryDependencies ++= Seq(
