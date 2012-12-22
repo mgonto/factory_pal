@@ -100,6 +100,8 @@ Note the FactoryPal dependency and the FactoryPal repository.
 
 Internally, this framework uses Scala Macros, Dynamic and the new Reflection library provided by Scala 2.10.
 
+Besides this, every class, every object except for FactoryPal object are Inmutable. I think that this is the best practice to use. FactoryPal has a mutable field with an inmutable map assigned to it where I add the new templates added by the user
+
 ##Next Steps
 
 The next things I want to do are:
