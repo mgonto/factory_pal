@@ -104,6 +104,7 @@ Internally, this framework uses Scala Macros, Dynamic and the new Reflection lib
 
 The next things I want to do are:
 
+* ~~Multiple templates for class~~
 * Add template inheritance
 * Add helpers to use this with ScalaTest and Specs2. For the moment, you can create the templates in the before.
 
