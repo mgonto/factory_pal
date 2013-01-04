@@ -87,7 +87,7 @@ object ApplicationBuild extends Build {
       resolvers ++= Seq(
          "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
          Resolver.url("Factory Pal Repository", 
-          url("http://mgonto.github.com/snapshots/"))(Resolver.ivyStylePatterns)
+          url("http://mgonto.github.com/"))(Resolver.ivyStylePatterns)
       )
     )
   )
