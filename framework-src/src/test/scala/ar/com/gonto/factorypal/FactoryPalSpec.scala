@@ -77,7 +77,7 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
 
       val newName = "pepe"
       val person = FactoryPal.create[Person]() { person =>
-        person.name.mapsTo(newName) alone
+        person.name.mapsTo(newName).alone
       }
 
       person.name should equal(newName)
@@ -88,7 +88,7 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
       val companyName = "gonto"
       val employeeName = "gontoEmployee"
       FactoryPal.register[Company]() { company =>
-        company.name.mapsTo(companyName) alone
+        company.name.mapsTo(companyName).alone
       }
 
       FactoryPal.register[Employee]() { employee =>
