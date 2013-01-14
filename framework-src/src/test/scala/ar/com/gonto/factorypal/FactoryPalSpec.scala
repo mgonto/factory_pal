@@ -44,6 +44,16 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
       person.age should equal(age)
     }
 
+    it("should construct an object with an Option value") {
+      val value = Some("value")
+      FactoryPal.register[Maybe]() { maybe =>
+        maybe.value.mapsTo(value)
+      }
+
+      val maybe = FactoryPal.create[Maybe]
+      maybe.value should equal(value)
+    }
+
     it("should construct two models for person ok") {
       val name = "gonto"
       val age = 2223
