@@ -39,3 +39,5 @@ case class Company(name : String)
 case class Employee(name : String, company : Company)
 
 case class Maybe(value: Option[String])
+
+case class MaybeMany(values: Option[List[String]])
