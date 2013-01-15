@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
       ),
       resolvers ++= Seq(
          "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-         "OSS SonaType" at "https://oss.sonatype.org/content/groups/public/"
+         "OSS SonarType" at "https://oss.sonatype.org/content/groups/public/"
       )
 
       // add other settings here
