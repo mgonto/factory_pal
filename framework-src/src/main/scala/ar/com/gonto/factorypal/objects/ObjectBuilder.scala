@@ -73,6 +73,7 @@ object ObjectBuilder {
       case NullaryMethodType(tpe) => tpe
       case _ => doesntCompile(s"$propertyName isn't a field, it must be another thing")
     }
+
     //I've tried to format this line but couldn't. Eclipse and IntelliJ both get nuts
 
     c.Expr(Block(List(ClassDef(Modifiers(Flag.FINAL), newTypeName("$anon"), List(),
@@ -95,7 +96,7 @@ object ObjectBuilder {
             newTypeName("FieldBuilder")
           )
         ),
-        emptyValDef, List(DefDef(Modifiers(), nme.CONSTRUCTOR, List(), List(List()), TypeTree(), Block(List(Apply(Select(Super(This(tpnme.EMPTY), tpnme.EMPTY), nme.CONSTRUCTOR), List(Literal(Constant(propertyName))))), Literal(Constant(())))), TypeDef(Modifiers(), newTypeName("objectType"), List(), Ident(newTypeName(objectType.typeSymbol.name.toString))), TypeDef(Modifiers(), newTypeName("fieldType"), List(), Ident(newTypeName(fieldMemberType.typeSymbol.name.toString))))))), Apply(Select(New(Ident(newTypeName("$anon"))), nme.CONSTRUCTOR), List())))
+        emptyValDef, List(DefDef(Modifiers(), nme.CONSTRUCTOR, List(), List(List()), TypeTree(), Block(List(Apply(Select(Super(This(tpnme.EMPTY), tpnme.EMPTY), nme.CONSTRUCTOR), List(Literal(Constant(propertyName))))), Literal(Constant(())))), TypeDef(Modifiers(), newTypeName("objectType"), List(), Ident(newTypeName(objectType.typeSymbol.name.toString))), TypeDef(Modifiers(), newTypeName("fieldType"), List(), TypeTree(fieldMemberType)))))), Apply(Select(New(Ident(newTypeName("$anon"))), nme.CONSTRUCTOR), List())))
 
 
   }
