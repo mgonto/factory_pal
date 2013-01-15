@@ -32,7 +32,9 @@ object FactoryPal {
   private var models : Map[Symbol, ObjectSetter[Any]] = Map()
 
   def register[O](symbol : Option[Symbol] = None)(model : ObjectBuilder[O] => ObjectSetter[O])(implicit man : Manifest[O]) {
-    models = models updated(mapKey(symbol), model(ObjectBuilder[O]()))
+    synchronized {
+      models = models updated(mapKey(symbol), model(ObjectBuilder[O]()))
+    }
   }
 
   def create[O] (symbol : Option[Symbol] = None)
