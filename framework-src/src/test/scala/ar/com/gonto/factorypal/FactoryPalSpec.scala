@@ -66,7 +66,7 @@ class FactoryPalSpec extends FunSpec with ShouldMatchers {
 
     it("should be able to deal with non-exising optional values (None)") {
       val none = None
-      FactoryPal.register[Maybe](Some('none)) {
+      FactoryPal.register[Maybe](Some('none)) { maybe =>
         maybe.value.mapsTo(none)
       }
 
