@@ -19,6 +19,8 @@
 
 package ar.com.gonto.factorypal
 
+import collection.mutable
+
 import objects.{ObjectSetter, ObjectBuilder}
 import reflection.ObjectReflector
 
@@ -29,12 +31,10 @@ import reflection.ObjectReflector
  */
 object FactoryPal {
 
-  private var models : Map[Symbol, ObjectSetter[Any]] = Map()
+  private[this] val models = new mutable.HashMap[Symbol, ObjectSetter[Any]]() with mutable.SynchronizedMap[Symbol, ObjectSetter[Any]]
 
   def register[O](symbol : Option[Symbol] = None)(model : ObjectBuilder[O] => ObjectSetter[O])(implicit man : Manifest[O]) {
-    synchronized {
-      models = models updated(mapKey(symbol), model(ObjectBuilder[O]()))
-    }
+      models += ((mapKey(symbol), model(ObjectBuilder[O]())))
   }
 
   def create[O] (symbol : Option[Symbol] = None)
