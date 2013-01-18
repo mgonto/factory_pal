@@ -21,7 +21,7 @@ package ar.com.gonto.factorypal
 */
 abstract class PalObject[T](implicit m: Manifest[T]) {
 
-  def apply(symbol: Option[Symbol] = None) = FactoryPal.create[T](symbol)()(m)
+  def apply(symbol: Option[Symbol] = None) = FactoryPal.create[T](symbol)()
 
   def register(): Unit
 
