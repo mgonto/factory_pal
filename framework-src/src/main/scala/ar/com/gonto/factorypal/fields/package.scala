@@ -21,6 +21,7 @@ package ar.com.gonto.factorypal
 
 import objects.ObjectSetter
 import util.Random
+import scala.language.implicitConversions
 
 /**
  * This package object will have the implicit conversion to turn a FieldSetter to an
@@ -37,28 +38,28 @@ package object fields {
    * @author mgonto
    * Created Date: 12/18/12
    */
-  trait Randomizer[T] {
+  trait Randomizer[T] extends (() => T){
 
     val random = new Random()
 
-    def randomValue : T
+    def apply() : T
   }
 
   implicit object IntRandomizer extends Randomizer[Int] {
 
-    def randomValue : Int = random.nextInt()
+    def apply() : Int = random.nextInt()
   }
 
   implicit object DoubleRandomizer extends Randomizer[Double] {
-    def randomValue : Double = random.nextDouble()
+    def apply() : Double = random.nextDouble()
   }
 
   implicit object LongRandomizer extends Randomizer[Long] {
-    def randomValue : Long = random.nextLong()
+    def apply() : Long = random.nextLong()
   }
 
   implicit object StringRandomizer extends Randomizer[String] {
-    def randomValue : String = random.nextString(10)
+    def apply() : String = random.nextString(10)
   }
 
 }

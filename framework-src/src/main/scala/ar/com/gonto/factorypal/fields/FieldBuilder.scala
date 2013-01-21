@@ -43,7 +43,10 @@ class FieldBuilder(val propName: String) {
   }
 
   def isRandom(implicit random : Randomizer[fieldType], man : Manifest[fieldType]) : FieldSetter[objectType, fieldType] =
-    mapsTo(random.randomValue)
+    mapsTo(random())
+
+  def isRandom(random : (() => fieldType)) (implicit man : Manifest[fieldType]) : FieldSetter[objectType, fieldType] =
+    mapsTo(random())
 
   def isAnotherFactoryModel(implicit man : Manifest[fieldType]) =
     new OtherModelFieldSetter[objectType, fieldType](propName, fieldClass)
