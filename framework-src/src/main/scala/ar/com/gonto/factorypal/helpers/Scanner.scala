@@ -1,4 +1,4 @@
-package ar.com.gonto.factorypal
+package ar.com.gonto.factorypal.helpers
 
 import scala.language.experimental.macros
 import scala.reflect.macros.Context

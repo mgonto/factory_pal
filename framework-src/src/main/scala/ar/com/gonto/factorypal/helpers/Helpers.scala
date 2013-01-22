@@ -1,4 +1,4 @@
-package ar.com.gonto.factorypal
+package ar.com.gonto.factorypal.helpers
 
 /**
 * By defining an object as a subtype of this abstract class, using FactoryPal
@@ -34,6 +34,3 @@ trait PalTrait {
 trait SpecHelper[T <: PalTrait] {
   Scanner.subclasses[T] foreach {_.register()}
 }
-
-
-

@@ -1,4 +1,4 @@
-package ar.com.gonto.factorypal
+package ar.com.gonto.factorypal.helpers
 
 import org.scalatest, scalatest.{FunSpec, matchers}, matchers.ShouldMatchers
 
