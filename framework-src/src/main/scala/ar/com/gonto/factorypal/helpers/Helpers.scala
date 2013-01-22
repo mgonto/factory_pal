@@ -1,4 +1,5 @@
-package ar.com.gonto.factorypal.helpers
+package ar.com.gonto.factorypal
+package helpers
 
 /**
 * By defining an object as a subtype of this abstract class, using FactoryPal
