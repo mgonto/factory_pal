@@ -24,14 +24,12 @@ abstract class PalObject[T](implicit m: Manifest[T]) {
 
   def apply(symbol: Option[Symbol] = None) = FactoryPal.create[T](symbol)()
 
-  def register(): Unit
-
 }
 
 trait PalTrait {
   def register(): Unit
 }
 
-trait SpecHelper[T <: PalTrait] {
-  Scanner.subclasses[T] foreach {_.register()}
-}
+// trait SpecHelper[T <: PalTrait] {
+//   Scanner.subclasses[T] foreach {_.register()}
+// }
