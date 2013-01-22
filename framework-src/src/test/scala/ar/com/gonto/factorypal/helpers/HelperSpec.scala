@@ -1,10 +1,9 @@
-package ar.com.gonto.factorypal.helpers
+package ar.com.gonto.factorypal
+package helpers
 
 import org.scalatest, scalatest.{FunSpec, matchers}, matchers.ShouldMatchers
 
-sealed trait Tests extends PalTrait {
-  def ping = false
-}
+sealed trait Tests extends PalTrait
 
 case class RealObject1()
 case class RealObject2()
@@ -78,7 +77,7 @@ class HelperSpec extends FunSpec with ShouldMatchers {
     it("should find all subclasses of the sealed trait Tests") {
       val subs = Scanner.subclasses[Tests]
       subs.size should be(2)
-      subs.map{_.ping}.foldLeft(true)(_ && _) should be(false)
+      subs foreach {_.register()}
     }
 
   }
