@@ -3,18 +3,6 @@ package helpers
 
 import org.scalatest, scalatest.{FunSpec, matchers}, matchers.ShouldMatchers
 
-sealed trait Tests extends PalTrait
-
-case class RealObject1()
-case class RealObject2()
-
-class PalObject1 extends PalObject[RealObject1] with Tests {
-  def register() = {}
-}
-class PalObject2 extends PalObject[RealObject2] with Tests {
-  def register() = {}
-}
-
 case class Test(v: String)
 case class Test2(v: String)
 
@@ -68,16 +56,6 @@ class HelperSpec extends FunSpec with ShouldMatchers {
       noName.v should be ("stringValue")
       hasName should not be (null)
       hasName.v should be ("nameValue")
-    }
-
-  }
-
-  describe("Scanner") {
-
-    it("should find all subclasses of the sealed trait Tests") {
-      val subs = Scanner.subclasses[Tests]
-      subs.size should be(2)
-      subs foreach {_.register()}
     }
 
   }

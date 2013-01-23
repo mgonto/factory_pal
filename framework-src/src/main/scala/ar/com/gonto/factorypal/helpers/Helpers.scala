@@ -1,6 +1,8 @@
 package ar.com.gonto.factorypal
 package helpers
 
+import scala.util.Try
+
 /**
 * By defining an object as a subtype of this abstract class, using FactoryPal
 * becomes much easier. This class provides convenient access to the register method
@@ -22,6 +24,8 @@ package helpers
 */
 abstract class PalObject[T](implicit m: Manifest[T]) {
 
+  def create(symbol: Option[Symbol] = None) = Try(FactoryPal.create[T](symbol)())
+
   def apply(symbol: Option[Symbol] = None) = FactoryPal.create[T](symbol)()
 
 }
@@ -30,6 +34,6 @@ trait PalTrait {
   def register(): Unit
 }
 
-// trait SpecHelper[T <: PalTrait] {
-//   Scanner.subclasses[T] foreach {_.register()}
-// }
+trait SpecHelper[T <: PalTrait] {
+  Scanner.subclasses[T] foreach {_.register()}
+}
