@@ -73,7 +73,7 @@ trait PalTrait {
 */
 trait SpecHelper {
   def register[T: TypeTag]() {
-    val d = Scanner.sealedDescendants[T]
-    d map { x: reflect.runtime.universe.Symbol => Class.forName(x.fullName).newInstance.asInstanceOf[PalTrait] } foreach {_.register()}
+    def sym2pal = (x: reflect.runtime.universe.Symbol) => Class.forName(x.fullName).newInstance.asInstanceOf[PalTrait]
+    Scanner.sealedDescendants[T] map sym2pal foreach {_.register()}
   }
 }
