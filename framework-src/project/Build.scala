@@ -22,17 +22,6 @@ object ApplicationBuild extends Build {
         "OSS Sonatype" at "https://oss.sonatype.org/content/groups/public/"
         )
       )
-    ) dependsOn(macros)
-
-  lazy val macros = Project(
-    id = "macros",
-    base = file("macros/"),
-    settings = Project.defaultSettings ++ Seq(
-      name := "factory_pal_macros",
-      scalaVersion := "2.10.0",
-      libraryDependencies ++= Seq(
-        "org.scala-lang" % "scala-compiler" % "2.10.0"
-        )
-      )
     )
+  
 }
