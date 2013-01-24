@@ -3,6 +3,7 @@ import sbt.Keys._
 
 object ApplicationBuild extends Build {
 
+
   lazy val root = Project(
     id = "factory_pal",
     base = file("."),
@@ -14,14 +15,15 @@ object ApplicationBuild extends Build {
       scalacOptions := Seq("-deprecation", "-feature"),
       licenses      := ("Apache2", new java.net.URL("http://www.apache.org/licenses/LICENSE-2.0.txt")) :: Nil,
       libraryDependencies ++= Seq(
-        "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test",
-        "org.scala-lang" % "scala-compiler" % "2.10.0"
-        ),
+       "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test",
+       "org.scala-lang" % "scala-compiler" % "2.10.0"
+      ),
       resolvers ++= Seq(
-        "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-        "OSS Sonatype" at "https://oss.sonatype.org/content/groups/public/"
-        )
+         "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
+         "OSS SonarType" at "https://oss.sonatype.org/content/groups/public/"
       )
+
+      // add other settings here
     )
-  
+  )
 }
