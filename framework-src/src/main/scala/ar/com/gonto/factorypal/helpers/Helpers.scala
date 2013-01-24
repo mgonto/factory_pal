@@ -2,6 +2,7 @@ package ar.com.gonto.factorypal
 package helpers
 
 import scala.util.Try
+import scala.reflect.runtime.universe.TypeTag
 
 /**
 * By defining an object as a subtype of this abstract class, using FactoryPal
@@ -34,6 +35,9 @@ trait PalTrait {
   def register(): Unit
 }
 
-trait SpecHelper[T <: PalTrait] {
-  Scanner.subclasses[T] foreach {_.register()}
+trait SpecHelper {
+  def register[T: TypeTag]() {
+    val d = Scanner.sealedDescendants[T]
+    d map { x: reflect.runtime.universe.Symbol => Class.forName(x.fullName).newInstance.asInstanceOf[PalTrait] } foreach {_.register()}
+  }
 }

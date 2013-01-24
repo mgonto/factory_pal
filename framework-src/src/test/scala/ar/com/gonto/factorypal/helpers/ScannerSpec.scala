@@ -26,16 +26,10 @@ class PalObject2 extends PalObject[RealObject2] with Tests {
   }
 }
 
-class ScannerSpec extends FunSpec with ShouldMatchers with SpecHelper[Tests] {
+class ScannerSpec extends FunSpec with ShouldMatchers with SpecHelper {
 
-  describe("Scanner") {
-
-    it("should find all subclasses of the sealed trait Tests") {
-      val subs = Scanner.subclasses[Tests]
-      subs.size should be(2)
-    }
-
-  }
+  // Scanner.sealedDescendants[Tests] foreach {println(_)}
+  register[Tests]()
 
   describe("PalTrait") {
 
