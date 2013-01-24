@@ -28,7 +28,6 @@ class PalObject2 extends PalObject[RealObject2] with Tests {
 
 class ScannerSpec extends FunSpec with ShouldMatchers with SpecHelper {
 
-  // Scanner.sealedDescendants[Tests] foreach {println(_)}
   register[Tests]()
 
   describe("PalTrait") {
