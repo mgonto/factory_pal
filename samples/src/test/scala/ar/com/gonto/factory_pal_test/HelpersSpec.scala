@@ -15,7 +15,7 @@
 
 package ar.com.gonto.factory_pal_test
 
-import org.scalatest.{BeforeAndAfter, FunSpec}
+import org.scalatest.{BeforeAndAfterAll, FunSpec}
 import org.scalatest.matchers.ShouldMatchers
 import ar.com.gonto.factorypal.{FactoryPal, helpers}, helpers._
 
@@ -49,9 +49,9 @@ class CeoTest extends PalObject[Ceo] with TestObjects {
   }
 }
 
-class HelpersSpec extends FunSpec with ShouldMatchers with BeforeAndAfter with SpecHelper {
+class HelpersSpec extends FunSpec with ShouldMatchers with BeforeAndAfterAll with SpecHelper {
 
-  before {
+  override def beforeAll(configMap: Map[String, Any]) {
     register[TestObjects]()
   }
 
