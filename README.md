@@ -107,9 +107,9 @@ Besides this, every class, every object except for FactoryPal object are Inmutab
 The next things I want to do are:
 
 * ~~Multiple templates for class~~
-* Refactor Randomizer to extend Function to use this inline easily
+* ~~Refactor Randomizer to extend Function to use this inline easily~~
 * Add template inheritance
-* Add helpers to use this with ScalaTest and Specs2. For the moment, you can create the templates in the before.
+* ~~Add helpers to use this with ScalaTest and Specs2. For the moment, you can create the templates in the before.~~
 
 
 ##Licence
