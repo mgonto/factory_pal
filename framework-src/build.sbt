@@ -2,7 +2,7 @@ name := "factory_pal"
 
 organization := "ar.com.gonto"
 
-version := "0.2.2"
+version := "0.2.3-SNAPSHOT"
 
 scalaVersion := "2.11.1"
 
