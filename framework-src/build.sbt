@@ -20,12 +20,10 @@ resolvers ++= Seq(
   "OSS SonarType" at "https://oss.sonatype.org/content/groups/public/"
 )
 
-site.settings
-
-ghpages.settings
-
-git.remoteRepo := "git@github.com:salsify/salsify.github.io.git"
-
-git.gitCurrentBranch := "master"
-
-git.branch := Some("master")
+publishTo := {
+  val rootPath = "../../factory_pal_ghpages"
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    Some(Resolver.file("snapshots",  new File(rootPath) ) )
+  else
+    Some(Resolver.file("releases",  new File(rootPath)) )
+}
