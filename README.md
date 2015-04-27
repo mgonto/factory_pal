@@ -15,7 +15,7 @@ FactoryPal.register[Person]() { person =>
 }
 ````
 
-In this example, we register a new template for class model. If we try to set a value for a property that Person doesn't has, your project won't compile. If you try to set a value to a property that isn't the type of that property, the project won't compile either. Pretty cool huh? This was possible thanks to Scala Macros and Dynamic, two features added in the latest Scala 2.10 RC release.
+In this example, we register a new template for class model. If we try to set a value for a property that Person doesn't have, your project won't compile. If you try to set a value to a property that isn't the type of that property, the project won't compile either. Pretty cool huh? This was possible thanks to Scala Macros and Dynamic, two features added in the latest Scala 2.10 RC release.
 
 For the time being, there are 3 supported operations on a field template.
 
@@ -37,7 +37,7 @@ val person = FactoryPal.create[Person]() { person  =>
 }
 ````
 
-Note that in this example we've added an alone at the end. If your builder has only one property, you need to tell this to FactoryPal by adding the alone at the end.
+Note that in this example we've added an 'alone' at the end. If your builder has only one property, you need to tell this to FactoryPal by adding the alone at the end.
 
 And that's it. That's all you need to know to use this.
 
@@ -62,7 +62,7 @@ val person = FactoryPal.create[Person](Some('coolPerson))()
 
 ## How can I add this to my project?
 
-This is an example configuration for Build.scala for your SBT project :). There're only snapshots for now as Scala 2.10 is not yet final. Once it's, I'm going to make a release. You can check this out in the sample in this project.
+This is an example configuration for Build.scala for your SBT project :). There are only snapshots for now as Scala 2.10 is not yet final. Once it certainly is, I'm going to make a release. You can check this out in the sample in this project.
 ````scala
 import sbt._
 import sbt.Keys._
@@ -100,7 +100,7 @@ Note the FactoryPal dependency and the FactoryPal repository.
 
 Internally, this framework uses Scala Macros, Dynamic and the new Reflection library provided by Scala 2.10.
 
-Besides this, every class, every object except for FactoryPal object are Inmutable. I think that this is the best practice to use. FactoryPal has a mutable field with an inmutable map assigned to it where I add the new templates added by the user
+Besides this, every class, every object except for FactoryPal object are immutable. I think that this is the best practice to use. FactoryPal has a mutable field with an immutable map assigned to it where I add the new templates added by the user.
 
 ##Next Steps
 
