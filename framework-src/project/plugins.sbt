@@ -2,6 +2,7 @@
 logLevel := Level.Warn
 
 // The Typesafe repository
-resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
-
-resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+resolvers ++= Seq(
+  "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
+  "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+)
