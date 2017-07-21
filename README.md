@@ -1,10 +1,10 @@
-#FactoryPal
+# FactoryPal
 
 FactoryPal is a scala framework that lets you create objects as test data. All you have to do is define the templates for each of the classes that you want FactoryPal to create objects from. After that, FactoryPal takes care of the rest. 
 
-Have you ever heard of factory_girl a super cool Ruby framework? Well, FactoryPal is pretty similar in its use. The difference is that FactoryPal is 100% type safe, which all of us Scala people love.
+Have you ever heard of [factory_girl](https://github.com/thoughtbot/factory_girl), a super cool Ruby framework? Well, FactoryPal is pretty similar in its use. The difference is that FactoryPal is 100% type safe, which all of us Scala people love.
 
-##How do we use this?
+## How do we use this?
 
 FactoryPal is a singleton object where you can register all of the templates. For example, you can define a template as follows:
 
@@ -62,7 +62,9 @@ val person = FactoryPal.create[Person](Some('coolPerson))()
 
 ## How can I add this to my project?
 
-This is an example configuration for Build.scala for your SBT project :). There are only snapshots for now as Scala 2.10 is not yet final. Once it certainly is, I'm going to make a release. You can check this out in the sample in this project.
+This is an example configuration for Build.scala for your SBT project :). 
+You can check this out in the sample in this project.
+
 ````scala
 import sbt._
 import sbt.Keys._
@@ -96,13 +98,13 @@ object ApplicationBuild extends Build {
 
 Note the FactoryPal dependency and the FactoryPal repository.
 
-##What does it use internally?
+## What does it use internally?
 
 Internally, this framework uses Scala Macros, Dynamic and the new Reflection library provided by Scala 2.10.
 
 Besides this, every class, every object except for FactoryPal object are immutable. I think that this is the best practice to use. FactoryPal has a mutable field with an immutable map assigned to it where I add the new templates added by the user.
 
-##Next Steps
+## Next Steps
 
 The next things I want to do are:
 
@@ -112,10 +114,6 @@ The next things I want to do are:
 * ~~Add helpers to use this with ScalaTest and Specs2. For the moment, you can create the templates in the before.~~
 
 
-##Licence
+## Licence
 
 FactoryPal is distributed under the [Apache 2 licence](http://www.apache.org/licenses/LICENSE-2.0.html)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mgonto/factory_pal/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
